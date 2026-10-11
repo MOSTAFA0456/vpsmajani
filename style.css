@@ -1,0 +1,509 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Tahoma, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
+    min-height: 100vh;
+    transition: 0.3s;
+}
+
+
+/* HEADER */
+
+.header {
+    width: 100%;
+    min-height: 75px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 7%;
+
+    background: white;
+
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+
+    direction: ltr;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #2563eb;
+}
+
+.logo small {
+    display: block;
+    font-size: 11px;
+    color: #777;
+}
+
+nav {
+    display: flex;
+    gap: 8px;
+}
+
+nav button {
+    border: none;
+    background: transparent;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+nav button:hover {
+    background: #eef4ff;
+}
+
+
+/* HERO */
+
+.hero {
+    text-align: center;
+    padding: 80px 20px 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+
+    color: white;
+}
+
+.hero h1 {
+    font-size: 44px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 35px;
+}
+
+
+.search-box {
+    width: min(700px, 95%);
+
+    margin: auto;
+
+    display: flex;
+
+    background: white;
+
+    padding: 7px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+}
+
+.search-box input {
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    padding: 15px;
+
+    font-size: 17px;
+
+    color: #222;
+
+    direction: ltr;
+    text-align: left;
+}
+
+.search-box button {
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 0 25px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+}
+
+.search-box button:hover {
+    background: #1d4ed8;
+}
+
+
+/* SUGGESTIONS */
+
+#suggestions {
+    width: min(700px, 95%);
+    margin: 5px auto;
+    position: relative;
+    z-index: 10;
+}
+
+.suggestion {
+    background: white;
+    color: #222;
+
+    padding: 12px 18px;
+
+    border-bottom: 1px solid #eee;
+
+    cursor: pointer;
+
+    text-align: left;
+    direction: ltr;
+}
+
+.suggestion:hover {
+    background: #eef4ff;
+}
+
+
+/* ALPHABET */
+
+.alphabet {
+    background: white;
+
+    margin: 30px auto;
+
+    width: min(1100px, 94%);
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+
+    text-align: center;
+}
+
+.alphabet h2 {
+    margin-bottom: 20px;
+}
+
+#alphabetButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+}
+
+.letter {
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #eef4ff;
+
+    color: #2563eb;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.letter:hover {
+    background: #2563eb;
+    color: white;
+}
+
+
+/* CONTENT */
+
+.content {
+    width: min(1100px, 94%);
+    margin: 30px auto;
+}
+
+.welcome {
+    background: white;
+
+    padding: 60px 30px;
+
+    text-align: center;
+
+    border-radius: 18px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.welcome h2 {
+    margin-bottom: 15px;
+}
+
+
+/* WORD CARD */
+
+.word-card {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.word-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    direction: ltr;
+}
+
+.word {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.part {
+    color: #666;
+    margin-top: 8px;
+}
+
+.translation {
+    margin-top: 30px;
+
+    background: #eef4ff;
+
+    padding: 20px;
+
+    border-radius: 14px;
+
+    font-size: 25px;
+
+    font-weight: bold;
+}
+
+.pronunciation {
+    margin-top: 20px;
+
+    font-size: 19px;
+
+    direction: ltr;
+
+    text-align: left;
+}
+
+.definition {
+    margin-top: 25px;
+
+    line-height: 1.9;
+}
+
+.example {
+    margin-top: 25px;
+
+    padding: 20px;
+
+    background: #f7f7f7;
+
+    border-right: 5px solid #2563eb;
+
+    direction: ltr;
+
+    text-align: left;
+
+    line-height: 1.8;
+}
+
+
+/* BUTTONS */
+
+.actions {
+    margin-top: 25px;
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    background: #2563eb;
+
+    color: white;
+}
+
+.action-btn.favorite {
+    background: #f59e0b;
+}
+
+.action-btn.speak {
+    background: #16a34a;
+}
+
+
+/* WORD LIST */
+
+.word-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(180px, 1fr));
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+.word-item {
+    background: white;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+
+    direction: ltr;
+}
+
+.word-item:hover {
+    transform: translateY(-2px);
+}
+
+
+/* FOOTER */
+
+footer {
+    margin-top: 80px;
+
+    padding: 40px;
+
+    background: #111827;
+
+    color: white;
+
+    text-align: center;
+}
+
+footer p {
+    margin-top: 10px;
+    color: #bbb;
+}
+
+
+/* DARK MODE */
+
+body.dark {
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+body.dark .header,
+body.dark .alphabet,
+body.dark .welcome,
+body.dark .word-card,
+body.dark .word-item {
+    background: #1e293b;
+    color: #e5e7eb;
+}
+
+body.dark .translation {
+    background: #263653;
+}
+
+body.dark .example {
+    background: #111827;
+}
+
+body.dark nav button {
+    color: white;
+}
+
+body.dark .letter {
+    background: #263653;
+    color: white;
+}
+
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    .header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        padding-top: 50px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .search-box {
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .search-box button {
+        padding: 14px;
+    }
+
+    .word-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .word {
+        font-size: 32px;
+    }
+
+}
+.afk-logo {
+  width: 100%;
+  max-width: 450px;
+  margin: 25px auto;
+  text-align: center;
+}
+
+.afk-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 0 25px #008cff66;
+}

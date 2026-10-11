@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AFK_Group Dictionary</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Tahoma, sans-serif;
+            background: #f3f6fb;
+            color: #172033;
+        }
+
+        header {
+            background: linear-gradient(135deg, #111827, #2563eb);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 38px;
+        }
+
+        header p {
+            margin-top: 10px;
+            opacity: .9;
+            font-size: 17px;
+        }
+
+        .container {
+            width: min(900px, 94%);
+            margin: 35px auto;
+        }
+
+        .search-box {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0,0,0,.08);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 17px;
+            border: 2px solid #dbe3ef;
+            border-radius: 14px;
+            font-size: 18px;
+            outline: none;
+            direction: ltr;
+        }
+
+        .search-box select {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 15px;
+            border: 2px solid #dbe3ef;
+            border-radius: 12px;
+            font-size: 16px;
+            background: white;
+            color: #172033;
+        }
+
+        .language-search {
+            margin-bottom: 12px;
+            direction: rtl;
+        }
+
+        .language-label {
+            display: block;
+            margin: 0 2px 6px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .language-controls {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            align-items: end;
+            gap: 10px;
+        }
+
+        .language-field {
+            min-width: 0;
+        }
+
+        .language-field select {
+            margin-bottom: 15px;
+        }
+
+        .swap-language {
+            width: 46px;
+            height: 46px;
+            margin-bottom: 15px;
+            padding: 0;
+            border: 2px solid #dbe3ef;
+            background: white;
+            color: #172033;
+            font-size: 22px;
+        }
+
+        .search-box input:focus,
+        .search-box select:focus {
+            border-color: #2563eb;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 12px;
+            padding: 13px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #translateBtn {
+            background: #2563eb;
+            color: white;
+            flex: 1;
+        }
+
+        #speakBtn {
+            background: #111827;
+            color: white;
+        }
+
+        #clearBtn {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        button:hover {
+            opacity: .88;
+        }
+
+        .result {
+            margin-top: 25px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0,0,0,.08);
+            display: none;
+        }
+
+        .label {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .original {
+            direction: ltr;
+            text-align: left;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .translation {
+            font-size: 30px;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .language {
+            margin-top: 20px;
+            color: #64748b;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 25px;
+            font-size: 18px;
+        }
+
+        .error {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #fee2e2;
+            color: #991b1b;
+            display: none;
+        }
+
+        .info {
+            margin-top: 25px;
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 15px;
+            color: #1e40af;
+            line-height: 1.8;
+        }
+
+        .afk-logo {
+            text-align: center;
+            margin: 25px auto 10px;
+        }
+
+        .afk-logo img {
+            width: min(220px, 65%);
+            border-radius: 18px;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+        }
+
+        @media(max-width:600px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            .original {
+                font-size: 25px;
+            }
+
+            .translation {
+                font-size: 24px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>AFK_Group Dictionary</h1>
+    <p id="directionText">انگلیسی → فارسی</p>
+</header>
+
+<div class="container">
+
+    <div class="search-box">
+
+        <input
+            id="languageSearch"
+            class="language-search"
+            type="search"
+            placeholder="جستجوی زبان..."
+            autocomplete="off"
+            aria-label="جستجوی زبان"
+        >
+
+        <div class="language-controls">
+            <div class="language-field">
+                <label class="language-label" for="sourceLanguage">زبان مبدا</label>
+                <select id="sourceLanguage"></select>
+            </div>
+            <button id="swapLanguages" class="swap-language" type="button" title="جابه‌جایی زبان‌ها" aria-label="جابه‌جایی زبان‌ها">⇄</button>
+            <div class="language-field">
+                <label class="language-label" for="targetLanguage">زبان مقصد</label>
+                <select id="targetLanguage"></select>
+            </div>
+        </div>
+
+        <input
+            id="wordInput"
+            type="text"
+            placeholder="یک کلمه یا جمله وارد کنید..."
+            autocomplete="off"
+        >
+
+        <div class="buttons">
+
+            <button id="translateBtn">
+                🌐 ترجمه
+            </button>
+
+            <button id="speakBtn">
+                🔊 تلفظ
+            </button>
+
+            <button id="clearBtn">
+                🗑️ پاک کردن
+            </button>
+
+        </div>
+
+        <div id="error" class="error"></div>
+
+        <div id="loading" class="loading">
+            ⏳ در حال دریافت ترجمه ...
+        </div>
+
+    </div>
+
+    <div id="result" class="result">
+
+        <div id="sourceLabel" class="label">
+            کلمه / جمله اصلی (انگلیسی)
+        </div>
+
+        <div id="original" class="original"></div>
+
+        <div id="targetLabel" class="label">
+            ترجمه فارسی
+        </div>
+
+        <div id="translation" class="translation"></div>
+
+        <div id="language" class="language"></div>
+
+    </div>
+
+    <div class="info">
+        💡 این وب سایت توسط MOSTAFA_AFK ساخته شده
+        www.youtube.com/@MOSTAFA_AFK
+    </div>
+
+</div>
+
+<footer>
+    © 2026 AFK_Group Dictionary
+</footer>
+
+<script>
+
+const wordInput = document.getElementById("wordInput");
+const languageSearch = document.getElementById("languageSearch");
+const sourceLanguage = document.getElementById("sourceLanguage");
+const targetLanguage = document.getElementById("targetLanguage");
+const swapLanguagesButton = document.getElementById("swapLanguages");
+const directionText = document.getElementById("directionText");
+const translateBtn = document.getElementById("translateBtn");
+const speakBtn = document.getElementById("speakBtn");
+const clearBtn = document.getElementById("clearBtn");
+
+const result = document.getElementById("result");
+const original = document.getElementById("original");
+const translation = document.getElementById("translation");
+const language = document.getElementById("language");
+const sourceLabel = document.getElementById("sourceLabel");
+const targetLabel = document.getElementById("targetLabel");
+
+const loading = document.getElementById("loading");
+const errorBox = document.getElementById("error");
+
+let lastText = "";
+
+const languages = [
+    ["af", "Afrikaans"], ["sq", "Albanian"], ["am", "Amharic"], ["ar", "Arabic"],
+    ["hy", "Armenian"], ["as", "Assamese"], ["ay", "Aymara"], ["az", "Azerbaijani"],
+    ["bm", "Bambara"], ["eu", "Basque"], ["be", "Belarusian"], ["bn", "Bengali"],
+    ["bho", "Bhojpuri"], ["bs", "Bosnian"], ["bg", "Bulgarian"], ["yue", "Cantonese"],
+    ["ca", "Catalan"], ["ceb", "Cebuano"], ["ny", "Chichewa"], ["zh-CN", "Chinese (Simplified)"],
+    ["zh-TW", "Chinese (Traditional)"], ["co", "Corsican"], ["hr", "Croatian"], ["cs", "Czech"],
+    ["da", "Danish"], ["dv", "Dhivehi"], ["doi", "Dogri"], ["nl", "Dutch"], ["en", "English"],
+    ["eo", "Esperanto"], ["et", "Estonian"], ["ee", "Ewe"], ["tl", "Filipino"], ["fi", "Finnish"],
+    ["fr", "French"], ["fy", "Frisian"], ["gl", "Galician"], ["ka", "Georgian"], ["de", "German"],
+    ["el", "Greek"], ["gn", "Guarani"], ["gu", "Gujarati"], ["ht", "Haitian Creole"], ["ha", "Hausa"],
+    ["haw", "Hawaiian"], ["iw", "Hebrew"], ["hi", "Hindi"], ["hmn", "Hmong"], ["hu", "Hungarian"],
+    ["is", "Icelandic"], ["ig", "Igbo"], ["ilo", "Ilocano"], ["id", "Indonesian"], ["ga", "Irish"],
+    ["it", "Italian"], ["ja", "Japanese"], ["jv", "Javanese"], ["kn", "Kannada"], ["kk", "Kazakh"],
+    ["km", "Khmer"], ["rw", "Kinyarwanda"], ["gom", "Konkani"], ["ko", "Korean"], ["kri", "Krio"],
+    ["ku", "Kurdish"], ["ky", "Kyrgyz"], ["lo", "Lao"], ["la", "Latin"], ["lv", "Latvian"],
+    ["ln", "Lingala"], ["lt", "Lithuanian"], ["lg", "Luganda"], ["lb", "Luxembourgish"], ["mk", "Macedonian"],
+    ["mai", "Maithili"], ["mg", "Malagasy"], ["ms", "Malay"], ["ml", "Malayalam"], ["mt", "Maltese"],
+    ["mi", "Maori"], ["mr", "Marathi"], ["mni-Mtei", "Meiteilon (Manipuri)"], ["lus", "Mizo"], ["mn", "Mongolian"],
+    ["my", "Myanmar (Burmese)"], ["ne", "Nepali"], ["no", "Norwegian"], ["or", "Odia"], ["om", "Oromo"],
+    ["ps", "Pashto"], ["fa", "Persian"], ["pl", "Polish"], ["pt", "Portuguese"], ["pa", "Punjabi"],
+    ["qu", "Quechua"], ["ro", "Romanian"], ["ru", "Russian"], ["sm", "Samoan"], ["sa", "Sanskrit"],
+    ["gd", "Scots Gaelic"], ["nso", "Sepedi"], ["sr", "Serbian"], ["st", "Sesotho"], ["sn", "Shona"],
+    ["sd", "Sindhi"], ["si", "Sinhala"], ["sk", "Slovak"], ["sl", "Slovenian"], ["so", "Somali"],
+    ["es", "Spanish"], ["su", "Sundanese"], ["sw", "Swahili"], ["sv", "Swedish"], ["tg", "Tajik"],
+    ["ta", "Tamil"], ["tt", "Tatar"], ["te", "Telugu"], ["th", "Thai"], ["ti", "Tigrinya"],
+    ["ts", "Tsonga"], ["tr", "Turkish"], ["tk", "Turkmen"], ["ak", "Twi"], ["uk", "Ukrainian"],
+    ["ur", "Urdu"], ["ug", "Uyghur"], ["uz", "Uzbek"], ["vi", "Vietnamese"], ["cy", "Welsh"],
+    ["xh", "Xhosa"], ["yi", "Yiddish"], ["yo", "Yoruba"], ["zu", "Zulu"]
+];
+
+const languageNames = {
+    fa: new Intl.DisplayNames(["fa"], { type: "language" })
+};
+
+function languageLabel(code, fallback) {
+    try {
+        return languageNames.fa.of(code) || fallback;
+    } catch {
+        return fallback;
+    }
+}
+
+function renderLanguageOptions(select, selectedCode, query) {
+    const normalizedQuery = query.trim().toLocaleLowerCase();
+    const matches = languages.filter(([code, englishName]) => {
+        const localizedName = languageLabel(code, englishName);
+        return `${code} ${englishName} ${localizedName}`.toLocaleLowerCase().includes(normalizedQuery);
+    });
+    const options = matches.some(([code]) => code === selectedCode)
+        ? matches
+        : [...languages.filter(([code]) => code === selectedCode), ...matches];
+
+    select.replaceChildren(...options.map(([code, englishName]) => {
+        const option = document.createElement("option");
+        option.value = code;
+        option.textContent = languageLabel(code, englishName);
+        option.selected = code === selectedCode;
+        return option;
+    }));
+}
+
+function updateLanguageOptions() {
+    renderLanguageOptions(sourceLanguage, sourceLanguage.value || "en", languageSearch.value);
+    renderLanguageOptions(targetLanguage, targetLanguage.value || "fa", languageSearch.value);
+}
+
+function updateDirection(clearInput = true) {
+    const from = sourceLanguage.value;
+    const to = targetLanguage.value;
+    const sourceName = languageNames.fa.of(from) || from;
+    const targetName = languageNames.fa.of(to) || to;
+
+    directionText.textContent = `${sourceName} → ${targetName}`;
+    sourceLabel.textContent = `کلمه / جمله اصلی (${sourceName})`;
+    targetLabel.textContent = `ترجمه ${targetName}`;
+    wordInput.placeholder = `یک کلمه یا جمله ${sourceName} وارد کنید...`;
+
+    if (clearInput) {
+        wordInput.value = "";
+    }
+    wordInput.focus();
+}
+
+function swapLanguages() {
+    const previousSource = sourceLanguage.value;
+    const previousTarget = targetLanguage.value;
+
+    languageSearch.value = "";
+    renderLanguageOptions(sourceLanguage, previousTarget, "");
+    renderLanguageOptions(targetLanguage, previousSource, "");
+    result.style.display = "none";
+    errorBox.style.display = "none";
+    lastText = "";
+    updateDirection(false);
+}
+
+languageSearch.addEventListener("input", updateLanguageOptions);
+sourceLanguage.addEventListener("change", updateDirection);
+targetLanguage.addEventListener("change", updateDirection);
+swapLanguagesButton.addEventListener("click", swapLanguages);
+
+async function translateWord() {
+
+    const text = wordInput.value.trim();
+    const from = sourceLanguage.value;
+    const to = targetLanguage.value;
+
+    errorBox.style.display = "none";
+
+    if (!text) {
+        showError("لطفاً یک کلمه یا جمله وارد کنید.");
+        return;
+    }
+
+    lastText = text;
+
+    loading.style.display = "block";
+    result.style.display = "none";
+
+    try {
+
+        const response = await fetch("/translate", {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                text: text,
+                from: from,
+                to: to
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.error || "خطا در ترجمه"
+            );
+        }
+
+        original.textContent = data.original;
+        translation.textContent = data.translated;
+
+        if (data.detectedLanguage) {
+            language.textContent = "زبان شناسایی‌شده: " + data.detectedLanguage;
+        } else {
+            language.textContent = "";
+        }
+
+        result.style.display = "block";
+
+        saveHistory(
+            data.original,
+            data.translated
+        );
+
+    } catch (error) {
+
+        showError(error.message);
+
+    } finally {
+
+        loading.style.display = "none";
+
+    }
+}
+
+
+function showError(message) {
+
+    errorBox.textContent = "❌ " + message;
+    errorBox.style.display = "block";
+
+}
+
+
+function speakWord() {
+
+    const text = lastText || wordInput.value.trim();
+
+    if (!text) {
+        showError("اول یک کلمه وارد کنید.");
+        return;
+    }
+
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = from === "iw" ? "he-IL" : from;
+    speech.rate = 0.8;
+
+    speechSynthesis.cancel();
+    speechSynthesis.speak(speech);
+}
+
+
+function clearAll() {
+
+    wordInput.value = "";
+
+    result.style.display = "none";
+
+    errorBox.style.display = "none";
+
+    lastText = "";
+
+    wordInput.focus();
+
+}
+
+
+function saveHistory(originalText, translatedText) {
+
+    let history =
+        JSON.parse(
+            localStorage.getItem(
+                "afk_dictionary_history"
+            ) || "[]"
+        );
+
+    history.unshift({
+        original: originalText,
+        translated: translatedText,
+        date: new Date().toLocaleString()
+    });
+
+    history =
+        history.slice(0, 100);
+
+    localStorage.setItem(
+        "afk_dictionary_history",
+        JSON.stringify(history)
+    );
+}
+
+translateBtn.addEventListener(
+    "click",
+    translateWord
+);
+
+
+speakBtn.addEventListener(
+    "click",
+    speakWord
+);
+
+
+clearBtn.addEventListener(
+    "click",
+    clearAll
+);
+
+
+wordInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+            translateWord();
+        }
+
+    }
+);
+
+updateLanguageOptions();
+updateDirection();
+
+</script>
+
+<div class="afk-logo">
+    <img src="afk-group.png" alt="AFK_Group Dictionary - Creator MOSTAFA_AFK">
+</div>
+
+</body>
+</html>
